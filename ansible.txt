@@ -1,0 +1,51 @@
+ansible-vault encrypt_string 'xxxxx' --name '231password' --vault-password-file=./secrets 
+
+
+cat >secrets<<EOF
+fsdfsdfsfsdf
+EOF
+
+
+ansible-vault encrypt_string '48898730' --name '231password' --vault-password-file=./salt 
+
+ansible all -m copy -a "src=/etc/ansible/resolv.conf dest=/etc/resolv.conf  mode=0755" user=root passwd=root -k
+
+
+
+ansible game -m copy -a "src=/etc/ansible/resolv.conf dest=/etc/resolv.conf  mode=0755" -u root -k
+
+ansible game -m copy -a "src=/etc/hosts dest=/etc/hosts mode=0755" -u root -k
+
+ansible game  -m shell -a "sed -i 's#172.18.230.103#172.18.230.66#g' /etc/sysconfig/network-scripts/ifcfg-ens192" -u root -k
+
+ansible game  -m shell -a "systemctl disable iptables" -u root -k
+
+
+
+ansible all -i cole.ini -m copy -a "src=/etc/hosts dest=/etc/hosts  mode=0755" -u root  -k
+
+ansible all -i cole.ini -m copy -a "src=/root/.vimrc dest=/root/" -u root  -k
+
+ansible -i cole.ini uat -m copy -a "src=/etc/hosts dest=/etc/hosts mode=0755" -u root -k
+
+/etc/sysconfig/network-scripts/ifcfg-ens192
+
+
+
+sed -i 's /DNS1=172.18.230.66/DNS1=172.18.230.103/g' /etc/sysconfig/network-scripts/ifcfg-ens192
+
+
+
+ansible -i key-test.ini -m copy -a "src=/data/software/game-app dest=/download force=yes backup=yes
+
+
+ansible -i key-test.ini all  -m synchronize -a "src=/data/software/game-app/ dest=/download/ "  
+
+ansible -i key-test.ini all -m synchronize -a "src=/data/software/game-app/ dest=/download/ rsync_opts='--exclude=log'"
+
+
+
+
+rsync avz --exclude=log root@10.3.17.4:/data/software/game-app/  /download/ 
+
+rsync -avz --exclude=*log* root@10.3.17.4:/data/software/game-app/  /download/
