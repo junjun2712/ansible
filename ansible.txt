@@ -56,7 +56,7 @@ prod
 cd /etc/ansible
 ansible -i prod_hosts all  -m shell -a "useradd ybapp" -u root -k
 
-ansible -i prod_hosts all  -m shell -a "echo "GDM9e4CJPt9tSHWr"|passwd ybapp  --stdin" -u root -k
+ansible -i prod_hosts all  -m shell -a "echo "fsdfsdf"|passwd ybapp  --stdin" -u root -k
 
 ansible -i prod_hosts all  -m copy -a "src=/etc/sudoers.d/ybapp dest=/etc/sudoers.d/ybapp" -u root -k
 
@@ -71,6 +71,6 @@ ansible -i cole.ini uat   -m copy -a "src=/etc/sudoers.d/ybapp dest=/etc/sudoers
 
 =====================================================================================================================
 
-ansible localhost -m lineinfile -a "dest=/etc/ansible/filebeat.yml  regexp='(add_cloud_metadata.*)' line='  -drop_fields:' state=present"
+ansible 172.18.230.142  -m lineinfile -a "dest=/etc/filebeat/filebeat.yml  regexp='(add_cloud_metadata.*)' line='  - drop_fields:' state=present" -u root -k 
 
-ansible localhost -m lineinfile -a "dest=/etc/ansible/filebeat.yml insertafter='drop_fields(.*)' line='    fields: ["log", "ecs","agent","agent","host","_score","_type","_id","_index","error.message","error.type","input.type"]'"
+ansible 172.18.230.142  -m lineinfile -a "dest=/etc/filebeat/filebeat.yml  insertafter='drop_fields(.*)' line='     fields: [\"log\", \"ecs\",\"agent\",\"agent\",\"host\",\"_score\",\"_type\",\"_id\",\"_index\",\"error.message\",\"error.type\",\"input.type\"]'" -u root -k
