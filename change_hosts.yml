@@ -1,11 +1,11 @@
 ---
 - hosts: all   #"{{host}}"
-  remote_user: ybapp
+  remote_user: user
   become: yes
   become_method: sudo
   tasks:
     - name: ls
-      shell: "sed -i 's#47.52.105.89#10.3.18.22#g' /etc/hosts"
+      shell: "sed -i 's#10.52.105.89#10.3.18.22#g' /etc/hosts"
       register: result
     - name: print
       debug: var=result.stdout
